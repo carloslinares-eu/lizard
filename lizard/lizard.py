@@ -1,9 +1,25 @@
+"""
+╔══════════════════════════════════════════════════════════════════╗
+║                         LIZARD LOGGER                            ║
+║              Temperature Monitoring and Logging Tool             ║
+╠══════════════════════════════════════════════════════════════════╣
+║ Author      : Carlos Linares + AI                                ║
+║ Project     : Lizard - Temperature Logger                        ║
+║ Description : Logs and displays temperature sensor data          ║
+║ License     : MIT License                                        ║
+║ Created     : 2025-08-06                                         ║
+║ Last Update : 2025-08-06                                         ║
+╚══════════════════════════════════════════════════════════════════╝
+"""
+
 import time
 import subprocess
 import re
+import os
 
 # Path to the log file
-log_file = "/home/carloslinares/temperature_log.txt"
+home_dir = os.path.expanduser("~")
+log_file = home_dir + "/temperature_log.txt"
 
 
 # Function to get the temperature from lm-sensors
