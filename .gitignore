@@ -1,16 +1,28 @@
-# Ignore PyCharm project settings
-.idea/
-
-# Byte-compiled / cache files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.egg-info/
+.pytest_cache/
 
-# Virtual environment
+# Virtual environments
+.venv/
 venv/
 env/
-ENV/
 
-# Log and data files
+# Build output (python -m build, PyInstaller, icon preview)
+build/
+dist/
+
+# Temperature logs
 *.log
 *.csv
+
+# IDE settings and exported inspection results stay local
+.idea/
+inspections/
+.vscode/
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini

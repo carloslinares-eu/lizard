@@ -1,0 +1,3 @@
+# Linux project: keep LF line endings everywhere, also in Windows checkouts.
+* text=auto eol=lf
+*.png binary
