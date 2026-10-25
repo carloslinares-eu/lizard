@@ -1,0 +1,22 @@
+# Logs the temperatures in the background with lizard-log, as a systemd user service.
+#
+#   mkdir -p ~/.config/systemd/user
+#   cp packaging/linux/lizard-log.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now lizard-log
+#
+# Readings go to ~/temperature_log.csv. Change ExecStart if lizard-log isn't in
+# ~/.local/bin (`command -v lizard-log` shows where it is), or to pass other options.
+# To keep logging while you are logged out: sudo loginctl enable-linger "$USER"
+
+[Unit]
+Description=Lizard temperature logger
+Documentation=https://github.com/carloslinares-eu/lizard
+
+[Service]
+ExecStart=%h/.local/bin/lizard-log --interval 10 --quiet
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=default.target

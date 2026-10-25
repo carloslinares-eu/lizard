@@ -1,0 +1,53 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} on Ubuntu
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install a virtual display for the GUI tests
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Install Lizard
+        run: pip install -e . "pytest>=8.0"
+      - name: Run the tests
+        run: xvfb-run -a pytest -v
+      - name: Try the headless logger
+        run: |
+          lizard-log --version
+          lizard-log --demo --count 2 --interval 1 --log-file "$RUNNER_TEMP/temps.csv"
+          lizard-log --list || true  # GitHub's runners may have no readable sensors
+          sh -n packaging/linux/install-desktop-entry.sh
+
+  binary:
+    name: Standalone binary
+    needs: test
+    runs-on: ubuntu-22.04  # an older glibc makes the binary run on more distributions
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Build
+        run: |
+          pip install -r requirements-dev.txt
+          pyinstaller packaging/lizard.spec
+      - name: Smoke test
+        run: ./dist/lizard --version
+      - uses: actions/upload-artifact@v7
+        with:
+          name: lizard-linux-x86_64
+          path: dist/lizard

@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# "lizard" on PyPI is an unrelated code-complexity tool, hence the longer distribution name.
+name = "lizard-temperature"
+dynamic = ["version"]
+description = "Watch, chart and log the temperature sensors of a Linux computer."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Carlos Linares" }]
+keywords = ["temperature", "sensors", "hwmon", "lm-sensors", "monitoring", "logging", "tkinter"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: X11 Applications",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: System :: Hardware",
+    "Topic :: System :: Monitoring",
+]
+# Lizard only uses the Python standard library (including Tkinter).
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pillow>=10.0",       # scripts/generate_icon.py
+    "pyinstaller>=6.0",   # packaging/lizard.spec
+]
+
+[project.urls]
+Source = "https://github.com/carloslinares-eu/lizard"
+Changelog = "https://github.com/carloslinares-eu/lizard/blob/main/CHANGELOG.md"
+
+[project.gui-scripts]
+lizard = "lizard.app:main"
+
+[project.scripts]
+lizard-log = "lizard.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "lizard.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["lizard*"]
+
+[tool.setuptools.package-data]
+lizard = ["assets/*.png"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Lizard
+GenericName=Temperature Monitor
+Comment=Watch, chart and log your computer's temperature sensors
+Exec=lizard
+Icon=lizard
+Terminal=false
+Categories=System;Monitor;
+Keywords=temperature;sensors;hwmon;thermal;cpu;gpu;nvme;
+StartupWMClass=Lizard
+StartupNotify=true
