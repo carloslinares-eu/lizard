@@ -15,8 +15,8 @@ jobs:
       matrix:
         python-version: ["3.10", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install a virtual display for the GUI tests
@@ -37,8 +37,8 @@ jobs:
     needs: test
     runs-on: ubuntu-22.04  # an older glibc makes the binary run on more distributions
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Build
@@ -47,7 +47,7 @@ jobs:
           pyinstaller packaging/lizard.spec
       - name: Smoke test
         run: ./dist/lizard --version
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: lizard-linux-x86_64
           path: dist/lizard
