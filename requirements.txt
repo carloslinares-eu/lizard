@@ -1,1 +1,12 @@
-dummy
+# Lizard has no third-party runtime dependencies.
+# It needs Python 3.10 or newer with Tkinter, which most distributions package
+# separately:
+#   Debian/Ubuntu:  sudo apt install python3-tk
+#   Fedora:         sudo dnf install python3-tkinter
+#   Arch:           sudo pacman -S tk
+#
+# NVIDIA GPU temperatures additionally need nvidia-smi, which comes with the
+# proprietary NVIDIA driver.
+#
+# For development tools (tests, icon generation, building a binary) see
+# requirements-dev.txt.
